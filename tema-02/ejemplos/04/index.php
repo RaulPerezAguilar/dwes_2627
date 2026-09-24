@@ -12,16 +12,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hola Mundo PHP</title>
+    <title>Mostrar valor de una variable</title>
 </head>
 <body>
-    <h1>Hola Mundo PHP</h1>
-    <?php
-    // Este es un comentario en PHP
-    /*
-        Este es un comentario de varias líneas en PHP
-    */
-    echo "<b>Nombre:</b>" . $nombre . "<br>";
-    ?>
+
+    <!--Muestro los detalles del alumno-->
+    <h1>Ficha Alumnos:</h1>
+    <p>Nombre: <?php echo $nombre; ?></p>
+    <p>Apellido: <?php echo $apellido; ?></p>
 </body>
 </html>
