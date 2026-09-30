@@ -17,6 +17,13 @@
               </p>";
 
         echo '<a href="http://www.elpais.es">Visitar El País</a>';
+
+        $titulo = "Mi primera aplicación en PHP";
+        $parrafo = "Este es un párrafo de tres líneas.<br>
+                    Estamos aprendiendo a utilizar PHP.<br>
+                    En este ejercicio utilizamos la función echo.";
+        $enlace = "http://www.elpais.es";
+        $imagen = "https://www.elpais.com/favicon.ico";
     ?>
 
 </body>
