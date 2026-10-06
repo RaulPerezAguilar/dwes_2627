@@ -1,7 +1,7 @@
 <?php
 
 /*
- controlador: sumar.php
+ controlador: restar.php
 
  Proyecto: proyecto 2.1 - calculadora básica
  Descripción: Calculadora de operaciones básicas:
@@ -24,10 +24,10 @@
 $valor1 =  $_POST['valor1'];
 $valor2 =  $_POST['valor2'];
 
-// Realizar la operación de suma
-$resultado = $valor1 + $valor2;
+// Realizar la operación de resta
+$resultado = $valor1 - $valor2;
 
-$operacion = "Suma";
+$operacion = "Resta";
 
 // Vista
 include "views/resultado.view.php";

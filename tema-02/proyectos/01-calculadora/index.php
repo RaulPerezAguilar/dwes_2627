@@ -1,18 +1,19 @@
 <?php
 
-/**
- * Proyecto: 2.1 - calculadora basica
- * Autor: Raul Perez Aguilar
- * Fecha: 2026-10-05
- * Descripción: Calculadora de operaciones basicas:
- *  - Suma
- *  - Resta
- *  - Multiplicación
- *  - División
- *  - Potencia
- *  - Raíz cuadrada
- *  - ...
- */
+/*
+
+ Proyecto: proyecto 2.1 - calculadora básica
+ Descripción: Calculadora de operaciones básicas:
+    - suma
+    - resta
+    - multiplicación
+    - división
+    - potencia
+    - ...
+ Alumno: [Nombre del alumno]
+ Fecha:
+ 
+*/
 
 // Modelo
 
