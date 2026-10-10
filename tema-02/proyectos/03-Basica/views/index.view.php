@@ -17,23 +17,36 @@
 
         <!-- cabecera de la aplicación -->
         <header class="bg-primary text-white p-3 mb-3">
-            <i class="bi bi-apple"></i>
-            <span class="fs-6">Apple</span>
+            <i class="bi bi-calculator-fill"></i>
+            <span class="fs-6">Bootstrap demo</span>
         </header>
     
         <!-- contenido principal de la aplicación -->
         <main>
             <div class="content">
-                <form method="post">
-                    <div class="mb-3">
-                        <label for="valor1" class="form-label">Valor 1:</label>
-                        <input type="number" class="form-control" step="0.01" placeholder="0.00" id="valor1" name="valor1" required>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="reset" class="btn btn-warning">Limpar</button>
-                        <button type="submit" class="btn btn-warning" name="operacion" value="sumar" formaction="sumar.php">Sumar</button>
-                    </div>
-                </form>
+
+            <!-- Formulario de la calculadora -->
+            <form method="post">
+                <!-- Campo valor 1 -->
+                <div class="mb-3">
+                    <label for="valor1" class="form-label">Valor 1:</label>
+                    <input type="number" class="form-control" step="0.01" placeholder="0.00" id="valor1" name="valor1" required>   
+                </div>
+
+                <!-- Campo valor 2 -->
+                <div class="mb-3">
+                    <label for="valor2" class="form-label">Valor 2:</label>
+                    <input type="number" class="form-control" step="0.01" placeholder="0.00" id="valor2" name="valor2" required>   
+                </div>
+
+                <!-- botones de  acción -->
+                <div class="btn-group" role="group">
+                    <button type="reset" class="btn btn-danger">Borrar</button>
+                    <button type="submit" class="btn btn-warning" name="operacion" value="sumar" formaction="sumar.php">Sumar</button>
+                    <button type="submit" class="btn btn-warning" name="operacion" value="restar" formaction="restar.php">Restar</button>
+                </div>
+            </form>
+
             </div>
 
         </main>
@@ -42,7 +55,7 @@
         <footer class="footer mt-auto py-3 fixed-bottom bg-light">
             <div class="container">
                 <span class="text-muted">&copy; 2026
-                    Raul Perez Aguilar - DWES - 2º DAW - Curso 26/27
+                    Juan Carlos Moreno - DWES - 2º DAW - Curso 26/27
                 </span>
             </div>
         </footer>

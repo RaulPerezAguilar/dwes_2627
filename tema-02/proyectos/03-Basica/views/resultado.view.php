@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Proyecto 2.2 - Calculadora de Proyectiles</title>
+    <title>Bootstrap resulado</title>
 
     <!-- css bootstrap básico 5.3.8 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -17,8 +17,8 @@
 
         <!-- cabecera de la aplicación -->
         <header class="bg-primary text-white p-3 mb-3">
-            <i class="bi bi-rocket"></i>
-            <span class="fs-6">Proyecto 2.2 - Calculadora de Proyectiles</span>
+            <i class="bi bi-calculator-fill"></i>
+            <span class="fs-6">Bootstrap resultado</span>
         </header>
     
         <!-- contenido principal de la aplicación -->
@@ -26,25 +26,36 @@
             <div class="content">
 
             <!-- Formulario de la calculadora -->
-            <form method="post">
-                <!-- Campo velocidad inicial -->
+            <form>
+                <?php if (!empty($error)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Campo valor 1 -->
                 <div class="mb-3">
-                    <label for="velocidad_inicial" class="form-label">Velocidad inicial:</label>
-                    <input type="number" class="form-control" step="0.01" placeholder="0.00" id="velocidad_inicial" name="velocidad_inicial" required>
-                    <small class="text-muted">Ingrese la velocidad inicial en metros por segundo (m/s).</small>   
+                    <label for="valor1" class="form-label">Valor 1:</label>
+                    <input type="number" class="form-control" step="any" value="<?= htmlspecialchars((string) $valor1, ENT_QUOTES, 'UTF-8') ?>" readonly>
                 </div>
 
-                <!-- Campo ángulo de lanzamiento -->
+                <!-- Campo valor 2 -->
                 <div class="mb-3">
-                    <label for="angulo_lanzamiento" class="form-label">Ángulo de lanzamiento:</label>
-                    <input type="number" class="form-control" step="0.01" placeholder="0.00" id="angulo_lanzamiento" name="angulo_lanzamiento" required>
-                    <small class="text-muted">Ingrese el ángulo en grados.</small>   
+                    <label for="valor2" class="form-label">Valor 2:</label>
+                    <input type="number" class="form-control" step="any" value="<?= htmlspecialchars((string) $valor2, ENT_QUOTES, 'UTF-8') ?>" readonly>
                 </div>
+
+                <!-- Campo resultado -->
+                <?php if (empty($error)): ?>
+                    <div class="mb-3">
+                        <label for="resultado" class="form-label"><?= htmlspecialchars($operacion, ENT_QUOTES, 'UTF-8') ?></label>
+                        <input type="number" class="form-control" step="any" value="<?= htmlspecialchars((string) $resultado, ENT_QUOTES, 'UTF-8') ?>" readonly>
+                    </div>
+                <?php endif; ?>
 
                 <!-- botones de  acción -->
                 <div class="btn-group" role="group">
-                    <button type="reset" class="btn btn-danger">Borrar</button>
-                    <button type="submit" class="btn btn-warning" name="operacion" value="calcular" formaction="calcular.php">Calcular el lanzamiento</button>
+                    <a class="btn btn-warning" href="index.php" role="button">Nuevo Cálculo</a> 
                 </div>
 
             </form>
