@@ -130,7 +130,7 @@
         <footer class="footer mt-auto py-3 fixed-bottom bg-light">
             <div class="container">
                 <span class="text-muted">&copy; 2026
-                    Juan Carlos Moreno - DWES - 2º DAW - Curso 26/27
+                    Raul Perez Aguilar - DWES - 2º DAW - Curso 26/27
                 </span>
             </div>
         </footer>
