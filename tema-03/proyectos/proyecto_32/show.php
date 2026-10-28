@@ -3,19 +3,14 @@
 /**
  * show.php
  *
- * Muestra la ficha de un artículo en modo solo lectura (Fase 05). Recibe ?indice=N.
+ * Muestra los datos de un artículo sin poder editarlos. Recibe el indice por GET.
  *
  * @package    CRUD Artículos
  * @author     Raul Perez Aguilar
  * @version    1.0
  *
  * Tabla articulos:
- *  - id (INT, PRIMARY KEY, AUTO_INCREMENT)
- *  - descripcion (VARCHAR(255))
- *  - modelo (VARCHAR(255))
- *  - categorias (array de categorías)
- *  - unidades (INT)
- *  - precio (DECIMAL)
+ *  - id, descripcion, modelo, categorias (array), unidades, precio
  */
 
 // Cargar librerías
@@ -24,16 +19,17 @@ require_once 'libs/functions.php';
 // Models
 
 // Negociado
-$articulos = get_articulos();
-$indice    = validar_indice($_GET['indice'] ?? null, $articulos);
+$indice = $_GET['indice'] ?? null;
 
-if ($indice === null) {
-    $q = $campo = $sentido = $mensaje = '';
-    $errores = ['El artículo que intenta consultar no existe.'];
-    include 'views/index.view.php';
+$articulos = get_articulos();
+
+// Si el índice no existe, volvemos al listado
+if ($indice === null || !isset($articulos[$indice])) {
+    header('Location: index.php');
     exit;
 }
 
+// Artículo a mostrar
 $articulo = $articulos[$indice];
 
 // Views

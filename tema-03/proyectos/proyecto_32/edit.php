@@ -3,19 +3,14 @@
 /**
  * edit.php
  *
- * Muestra el formulario de edición precargado (Fase 03). Recibe ?indice=N.
+ * Muestra el formulario para editar un artículo. Recibe el indice por GET (edit.php?indice=0).
  *
  * @package    CRUD Artículos
  * @author     Raul Perez Aguilar
  * @version    1.0
  *
  * Tabla articulos:
- *  - id (INT, PRIMARY KEY, AUTO_INCREMENT)
- *  - descripcion (VARCHAR(255))
- *  - modelo (VARCHAR(255))
- *  - categorias (array de categorías)
- *  - unidades (INT)
- *  - precio (DECIMAL)
+ *  - id, descripcion, modelo, categorias (array), unidades, precio
  */
 
 // Cargar librerías
@@ -24,22 +19,18 @@ require_once 'libs/functions.php';
 // Models
 
 // Negociado
+$indice = $_GET['indice'] ?? null;
+
 $articulos = get_articulos();
 
-// Validar el índice recibido por la URL (edit.php?indice=0 edita el primero)
-$indice = validar_indice($_GET['indice'] ?? null, $articulos);
-
-if ($indice === null) {
-    // Índice inexistente: se muestra el listado con un error
-    $q = $campo = $sentido = $mensaje = '';
-    $errores = ['El artículo que intenta editar no existe.'];
-    include 'views/index.view.php';
+// Si el índice no existe, volvemos al listado
+if ($indice === null || !isset($articulos[$indice])) {
+    header('Location: index.php');
     exit;
 }
 
-// Artículo a editar y errores (vacíos la primera vez)
+// Artículo a editar
 $articulo = $articulos[$indice];
-$errores  = [];
 
 // Views
 include 'views/edit.view.php';

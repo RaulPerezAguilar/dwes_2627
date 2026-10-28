@@ -3,19 +3,14 @@
 /**
  * create.php
  *
- * Recibe los datos de new.view.php (POST), valida y añade el artículo (Fase 02).
+ * Añade un nuevo artículo con los datos enviados por el formulario.
  *
  * @package    CRUD Artículos
  * @author     Raul Perez Aguilar
  * @version    1.0
  *
  * Tabla articulos:
- *  - id (INT, PRIMARY KEY, AUTO_INCREMENT)
- *  - descripcion (VARCHAR(255))
- *  - modelo (VARCHAR(255))
- *  - categorias (array de categorías)
- *  - unidades (INT)
- *  - precio (DECIMAL)
+ *  - id, descripcion, modelo, categorias (array), unidades, precio
  */
 
 // Cargar librerías
@@ -24,34 +19,29 @@ require_once 'libs/functions.php';
 // Models
 
 // Negociado
-// Solo se procesa si llega por POST; si no, se vuelve al formulario
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: new.php');
-    exit;
-}
+// Extraer los datos del formulario
+$descripcion = htmlspecialchars($_POST['descripcion'] ?? '');
+$modelo = htmlspecialchars($_POST['modelo'] ?? '');
+$categorias = htmlspecialchars($_POST['categorias'] ?? '');
+$unidades = $_POST['unidades'] ?? 0;
+$precio = $_POST['precio'] ?? 0;
 
-// Validar los datos del formulario
-[$nuevo, $errores] = validar_articulo($_POST);
-
-if (!empty($errores)) {
-    // Hay errores: se vuelve al formulario conservando lo escrito
-    $articulo = $nuevo;
-    include 'views/new.view.php';
-    exit;
-}
-
-// Obtener el array de artículos y el id del nuevo artículo (último id + 1)
+// Obtener el array de artículos y el id del nuevo artículo
 $articulos = get_articulos();
-$nuevo     = ['id' => obtener_id_nuevo_articulo($articulos)] + $nuevo;
+$nuevo_id = obtener_id_nuevo_articulo($articulos);
 
-// Añadir el nuevo artículo (solo existe durante esta petición: no hay persistencia)
-$articulos[] = $nuevo;
+// Crear el nuevo artículo (las categorías se separan por comas)
+$nuevo_articulo = [
+    'id' => $nuevo_id,
+    'descripcion' => $descripcion,
+    'modelo' => $modelo,
+    'categorias' => array_map('trim', explode(',', $categorias)),
+    'unidades' => (int) $unidades,
+    'precio' => (float) $precio
+];
 
-// Datos que necesita la vista
-$q       = '';
-$campo   = '';
-$sentido = '';
-$mensaje = 'Artículo añadido correctamente.';
+// Añadirlo al array
+$articulos[] = $nuevo_articulo;
 
 // Views
 include 'views/index.view.php';

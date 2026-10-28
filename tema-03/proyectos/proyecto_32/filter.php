@@ -3,19 +3,14 @@
 /**
  * filter.php
  *
- * Filtra el listado por el término recibido por GET (?q=texto) (Fase 07).
+ * Filtra la tabla por el texto recibido por GET (filter.php?q=texto).
  *
  * @package    CRUD Artículos
  * @author     Raul Perez Aguilar
  * @version    1.0
  *
  * Tabla articulos:
- *  - id (INT, PRIMARY KEY, AUTO_INCREMENT)
- *  - descripcion (VARCHAR(255))
- *  - modelo (VARCHAR(255))
- *  - categorias (array de categorías)
- *  - unidades (INT)
- *  - precio (DECIMAL)
+ *  - id, descripcion, modelo, categorias (array), unidades, precio
  */
 
 // Cargar librerías
@@ -24,15 +19,25 @@ require_once 'libs/functions.php';
 // Models
 
 // Negociado
-$q = trim($_GET['q'] ?? '');
+$q = htmlspecialchars(trim($_GET['q'] ?? ''));
 
-// Si el término está vacío se muestran todos; si no, solo los coincidentes
-$articulos = buscar_articulos(get_articulos(), $q);
+$articulos = get_articulos();
 
-$campo   = '';
-$sentido = '';
-$mensaje = '';
-$errores = [];
+// Si hay texto, nos quedamos solo con los artículos que coincidan
+if ($q != '') {
+    $resultado = [];
 
-// Views (se pasan el resultado y el término para mantenerlo en el formulario)
+    foreach ($articulos as $indice => $articulo) {
+        $texto = $articulo['descripcion'] . ' ' . $articulo['modelo'] . ' ' . implode(' ', $articulo['categorias']);
+
+        // mb_stripos busca sin distinguir mayúsculas y minúsculas
+        if (mb_stripos($texto, $q) !== false) {
+            $resultado[$indice] = $articulo;
+        }
+    }
+
+    $articulos = $resultado;
+}
+
+// Views
 include 'views/index.view.php';

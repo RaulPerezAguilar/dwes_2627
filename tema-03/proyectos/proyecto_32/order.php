@@ -3,19 +3,14 @@
 /**
  * order.php
  *
- * Ordena el listado por campo y sentido recibidos por GET (Fase 06). Ej: order.php?campo=precio&sentido=desc
+ * Ordena la tabla. Recibe campo y sentido por GET (order.php?campo=precio&sentido=desc).
  *
  * @package    CRUD Artículos
  * @author     Raul Perez Aguilar
  * @version    1.0
  *
  * Tabla articulos:
- *  - id (INT, PRIMARY KEY, AUTO_INCREMENT)
- *  - descripcion (VARCHAR(255))
- *  - modelo (VARCHAR(255))
- *  - categorias (array de categorías)
- *  - unidades (INT)
- *  - precio (DECIMAL)
+ *  - id, descripcion, modelo, categorias (array), unidades, precio
  */
 
 // Cargar librerías
@@ -24,23 +19,36 @@ require_once 'libs/functions.php';
 // Models
 
 // Negociado
+$campo = $_GET['campo'] ?? '';
+$sentido = $_GET['sentido'] ?? '';
+
 $articulos = get_articulos();
 
-// Validar los parámetros contra la lista blanca
-$campo   = $_GET['campo'] ?? '';
-$sentido = strtolower($_GET['sentido'] ?? '');
+// Solo se permiten estos valores
+$campos_validos = ['id', 'descripcion', 'modelo', 'unidades', 'precio'];
+$sentidos_validos = ['asc', 'desc'];
 
-if (array_key_exists($campo, CAMPOS_ORDEN) && in_array($sentido, SENTIDOS_ORDEN, true)) {
-    // Se ordena una copia; los datos originales no se modifican
-    $articulos = ordenar_articulos($articulos, $campo, $sentido);
-} else {
-    // Parámetros ausentes o no válidos: listado sin ordenar
-    $campo = $sentido = '';
+if (in_array($campo, $campos_validos) && in_array($sentido, $sentidos_validos)) {
+
+    // uasort ordena el array manteniendo los índices originales
+    uasort($articulos, function ($a, $b) use ($campo, $sentido) {
+
+        if ($campo == 'descripcion' || $campo == 'modelo') {
+            // Texto: sin distinguir mayúsculas y minúsculas
+            $resultado = strcasecmp($a[$campo], $b[$campo]);
+        } else {
+            // Números: id, unidades y precio
+            $resultado = $a[$campo] <=> $b[$campo];
+        }
+
+        // Si es descendente se invierte
+        if ($sentido == 'desc') {
+            $resultado = -$resultado;
+        }
+
+        return $resultado;
+    });
 }
-
-$q       = '';
-$mensaje = '';
-$errores = [];
 
 // Views
 include 'views/index.view.php';
