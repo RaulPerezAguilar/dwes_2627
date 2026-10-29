@@ -25,6 +25,20 @@
         <main>
             <div class="content">
 
+            <!-- Navegador o menu -->
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Inicio</a>
+                    </li>
+                        <?php if ($perfil == 'admin'): ?>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Administracion</a>
+                    </li>
+                        <?php endif; ?>
+                    </ul>
+            </nav>
+
             <!-- Formulario de la calculadora -->
             <form method="post">
                 <!-- Campo valor 1 -->
