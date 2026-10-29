@@ -40,6 +40,14 @@ function get_articulos() {
             'categorias' => ['PC sobremesa'],
             'unidades' => 30,
             'precio' => 15.95
+        ],
+        [
+            'id' => 5,
+            'descripcion' => 'Portátil - HP 15-DB0074NS',
+            'modelo' => 'HP 15-DB0074NS',
+            'categorias' => ['Portátil', 'Informática'],
+            'unidades' => 120,
+            'precio' => 379
         ]
     ];
 
