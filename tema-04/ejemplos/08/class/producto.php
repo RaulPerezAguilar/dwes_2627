@@ -39,8 +39,6 @@ public function getResumen(): string
 {
 return 'Descripción: ' . $this->getdescripcion()
 . ', Precio: ' . $this->getPrecio()
-. ', Categoria: ' . $this->getcategoria() . ' ' . $this
->getunidades();
+. ', Categoria: ' . $this->getcategoria() . ' ' . $this->getunidades();
 }
-}getunidades();
 }
