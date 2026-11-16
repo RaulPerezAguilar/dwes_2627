@@ -6,6 +6,7 @@ protected ?string $descripcion;
 protected ?float $precio;
 protected ?string $categoria;
 protected ?int $unidades;
+
 public function __construct(
 $id = null, 
 $descripcion = null, 
