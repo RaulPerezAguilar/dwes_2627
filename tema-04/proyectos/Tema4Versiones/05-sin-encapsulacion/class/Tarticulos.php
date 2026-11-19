@@ -3,13 +3,11 @@
 /*
     Archivo: Tarticulos.php
     Descripción: Clase Tarticulos, se trata de un array de  objetos de la clase Articulo.
-    Caracteristicas: POO con encapusulamiento.
+    Caracteristicas: POO sin encapsulamiento (atributos públicos).
     Atributos:
         - tarticulos []
     Métodos: 
         - constructor
-        - getters
-        - setters
         - getMarcas()
         - getCategorias()
 
@@ -19,30 +17,11 @@
 class Tarticulos
 {
 
-    private ?array $tarticulos;
+    public ?array $tarticulos;
 
     public function __construct()
     {
         $this->tarticulos = [];
-    }
-
-    // Getters y setters
-    /**
-     * Get the value of tarticulos
-     */
-    public function getTarticulos(): ?array
-    {
-        return $this->tarticulos;
-    }
-
-    /**
-     * Set the value of tarticulos
-     */
-    public function setTarticulos(?array $tarticulos): self
-    {
-        $this->tarticulos = $tarticulos;
-
-        return $this;
     }
 
     /*
@@ -204,7 +183,7 @@ class Tarticulos
     public function getArticuloById(int $id): ?Articulo
     {
         foreach ($this->tarticulos as $articulo) {
-            if ($articulo->getId() === $id) {
+            if ($articulo->id === $id) {
                 return $articulo;
             }
         }
@@ -218,7 +197,7 @@ class Tarticulos
     public function getIndiceById(int $id): ?int
     {
         foreach ($this->tarticulos as $indice => $articulo) {
-            if ($articulo->getId() === $id) {
+            if ($articulo->id === $id) {
                 return $indice;
             }
         }
@@ -234,5 +213,16 @@ class Tarticulos
         
         $this->tarticulos[$indice] = $articulo_actualizado;
        
+    }
+
+    /*
+        método: deleteArticulo()
+        Descripción: Elimina un objeto de la clase Articulo a partir de su indice
+    */
+    public function deleteArticulo(int $indice): void
+    {
+        unset($this->tarticulos[$indice]);
+        // Reindexar el array para evitar huecos en los índices
+        $this->tarticulos = array_values($this->tarticulos);
     }
 }
